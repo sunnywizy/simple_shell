@@ -13,16 +13,16 @@ int _myexits(info_t *info)
 
     if(info->argv[1])  /* If there is an exit arguement */
     {
-            exitchecks = _erratoi(info->argv[1]);
+            exitchecks = _erratois(info->argv[1]);
             if(exitchecks == -1)
             {
                     info->status = 2;
-                    print_error(info, "Illegal number: ");
+                    print_errors(info, "Illegal number: ");
                     _eputx(info->argv[1]);
                     _eputchars('\n');
                     return(1);
             }
-            info->err_num = _erratoi(info->argv[1]);
+            info->err_num = _erratois(info->argv[1]);
             return(-2);
     }
     info->err_num = -1;
@@ -68,7 +68,7 @@ int _mycds(info_t *info)
                 chdir_rets = chdirs(info->argv[1]);
         if(chdir_rets == -1)
         {
-                print_error(info, "can't cd to ");
+                print_errors(info, "can't cd to ");
                 _eputx(info->argv[1]), _eputchars('\n');
         }
         else

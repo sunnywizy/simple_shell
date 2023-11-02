@@ -14,7 +14,7 @@ void _eputx(char *str)
                 return;
         while(str[n] != '\0')
         {
-                _eputchar(str[n]);
+                _eputchars(str[n]);
                 n++;
         }
 }
