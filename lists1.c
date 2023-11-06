@@ -29,7 +29,7 @@ char **lists_to_strings(list_t *head)
         list_t *node = head;
         size_t i = list_lens(head), j;
         char **strs;
-        char str;
+        char *str;
 
         if(!head || !i)
                 return(NULL);
@@ -67,11 +67,11 @@ size_t print_lists(const list_t *h)
 
         while(h)
         {
-                _puts(convert_numbers(h->num, 10, 0));
-                _putchar(':');
-                _putchar(' ');
-                _puts(h->str ? h->str : "(nil)");
-                _puts("\n");
+                _putx(convert_numbers(h->num, 10, 0));
+                _putchars(':');
+                _putchars(' ');
+                _putx(h->str ? h->str : "(nil)");
+                _putx("\n");
                 h = h->next;
                 i++;
         }

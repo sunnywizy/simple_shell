@@ -30,7 +30,7 @@ int is_cmds(info_t *info, char *path)
  *
  * Return: pointer to new buffer
  */
-char dups_chars(char * pathstr, int start, int stop)
+char *dups_chars(char * pathstr, int start, int stop)
 {
         static char buf[1024];
         int i = 0, k =0;
@@ -66,7 +66,7 @@ char *find_paths(info_t *info, char *pathstr, char *cmd)
         {
                 if(!pathstr[i] || pathstr[i] == ':')
                 {
-                        path = dups_chars(pathstr, curr_pos, i)
+                        path = dups_chars(pathstr, curr_pos, i);
                         if(!*path)
                                 _strcats(path, cmd);
                         else

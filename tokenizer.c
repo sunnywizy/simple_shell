@@ -16,7 +16,7 @@ char **strtows(char *str, char *d)
                 return(NULL);
         if(!d)
                 d = " ";
-        if(a = 0; str[a] != '\0'; a++)
+        for(a = 0; str[a] != '\0'; a++)
                 if(!is_delims(str[a], d) && (is_delims(str[a + 1], d) || !str[a + 1]))
                         numword++;
                 
@@ -25,11 +25,11 @@ char **strtows(char *str, char *d)
         s = malloc((1 + numword) * sizeof(char *));
         if(!s)
                 return(NULL);
-        for(a = 0, b = 0; b < numwords; b++)
+        for(a = 0, b = 0; b < numword; b++)
         {
                 while(is_delims(str[a], d))
                         a++;
-                k = 0;
+                c = 0;
                 while(!is_delims(str[a + c], d) && str[a + c])
                         c++;
                 s[b] = malloc((c + 1) * sizeof(char));
@@ -65,30 +65,30 @@ char **strtows2(char *str, char d)
                 if((str[a] != d && str[a + 1] == d) || 
                     (str[a] != d && !str[a +1]) || str[a + 1] == d)
                             numword++;
-                if(numword == 0)
-                        return(NULL);
-                s = malloc((1 + numword) * sizeof(char *));
-                if(!s)
-                        return(NULL);
-                for(a = 0, b = 0; b < numword; b++)
+        if(numword == 0)
+                return(NULL);
+        s = malloc((1 + numword) * sizeof(char *));
+        if(!s)
+                return(NULL);
+        for(a = 0, b = 0; b < numword; b++)
+        {
+                while(str[a] == d && str[a] != d)
+                        a++;
+                c = 0;
+                while(str[a + c] != d && str[a + c] && str[a + c] != d)
+                        c++;
+                s[b] = malloc((c + 1) * sizeof(char));
+                if(!s[b])
                 {
-                        while(str[a] == d && str[a] != d)
-                                a++;
-                        c = 0;
-                        while(str[a + c] != d && str[a + c] && str[a + c] != d)
-                                k++;
-                        s[b] = malloc((c + 1) * sizeof(char));
-                        if(!s[b])
-                        {
-                                for(c = 0; c < b; c++)
-                                        free(s[c]);
-                                free(s);
-                                return(NULL);
-                        }
-                        for(m = 0; m < c; m++)
-                                s[b][m] = str[a++];
-                        s[b][m] = 0;
+                        for(c = 0; c < b; c++)
+                            free(s[c]);
+                        free(s);
+                        return(NULL);
                 }
-                s[b] = NULL;
-                return(s);
+                for(m = 0; m < c; m++)
+                        s[b][m] = str[a++];
+                s[b][m] = 0;
+        }
+        s[b] = NULL;
+        return(s);
 }

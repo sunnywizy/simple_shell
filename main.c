@@ -24,7 +24,7 @@ int main(int ac, char **av)
                 {
                         if(errno == EACCES)
                                 exit(126);
-                        if(errno == ENDENT)
+                        if(errno == ENOENT)
                         {
                                 _eputx(av[0]);
                                 _eputx(": 0: Can't open");

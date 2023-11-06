@@ -41,7 +41,7 @@ list_t *add_nodes(list_t **head, const char *str, int num)
  *
  * Return: size of list
  */
-list_t adds_node_end(list_t **head, const char *str, int num)
+list_t *adds_node_end(list_t **head, const char *str, int num)
 {
         list_t *new_node, *node;
         
@@ -59,7 +59,7 @@ list_t adds_node_end(list_t **head, const char *str, int num)
                 new_node->str = _strdups(str);
                 if(!new_node->str)
                 {
-                        if(!new_node);
+                        free(new_node);
                         return(NULL);
                 }
         }
@@ -86,8 +86,8 @@ size_t print_lists_strs(const list_t *h)
 
         while(h)
         {
-                _puts(h->str ? h->str : "(nil)");
-                _puts("\n");
+                _putx(h->str ? h->str : "(nil)");
+                _putx("\n");
                 h = h->next;
                 a++;
         }
@@ -142,7 +142,7 @@ int deletes_nodes_at_index(list_t **head, unsigned int index)
  */
 void frees_lists(list_t **head_ptr)
 {
-        list_t *node, next_node, *head;
+        list_t *node, *next_node, *head;
 
         if(!head_ptr || !*head_ptr)
                 return;

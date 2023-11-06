@@ -40,32 +40,32 @@ int _mycds(info_t *info)
         char *s, *dirs, buffer[1024];
         int chdir_rets;
 
-        s = getcwd(buffer, 1024)
+        s = getcwd(buffer, 1024);
         if(!s)
-                _puts("TODO: >>getcwd failure emsg here<<\n");
+                _putx("TODO: >>getcwd failure emsg here<<\n");
         if(!info->argv[1])
         {
                 dirs = _getsenv(info, "HOME=");
                 if(!dirs)
                         chdir_rets = /* TODO: what should this be? */
-                                    chdirs((dirs = _getsenv(info, "PWD=")) ? dir : "/");
+                                    chdir((dirs = _getsenv(info, "PWD=")) ? dirs : "/");
                 else
-                        chdir_rets = chdirs(dirs);
+                        chdir_rets = chdir(dirs);
         }
         else if (_strcmps(info->argv[1], "-") == 0)
         {
                 if(!_getsenv(info, "OLDPWD="))
                 {
-                        _puts(s);
-                        _putchar('\n')
+                        _putx(s);
+                        _putchars('\n');
                         return(1);
                 }
-                _puts(_getsenv(info, "OLDPWD=")), _putchar('\n');
+                _putx(_getsenv(info, "OLDPWD=")), _putchars('\n');
                 chdir_rets = /* TODO: what should this be? */
-                            chdirs((dirs = _getsenv(info, "OLDPWD=")) ? dirs : "/");
+                            chdir((dirs = _getsenv(info, "OLDPWD=")) ? dirs : "/");
         }
         else
-                chdir_rets = chdirs(info->argv[1]);
+                chdir_rets = chdir(info->argv[1]);
         if(chdir_rets == -1)
         {
                 print_errors(info, "can't cd to ");
@@ -90,8 +90,8 @@ int _myhelps(info_t *info)
         char **arg_arrays;
 
         arg_arrays = info->argv;
-        _puts("help call works. function not yet implemented \n");
+        _putx("help call works. function not yet implemented \n");
         if(0)
-                _puts(*arg_arrays); /* temp att_unused workaround */
+                _putx(*arg_arrays); /* temp att_unused workaround */
         return(0);
 }

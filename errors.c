@@ -33,7 +33,7 @@ int _eputchars(char c)
 
         if(c == BUF_FLUSH || n >= WRITE_BUF_SIZE)
         {
-                write(2, buf, n)
+                write(2, buf, n);
                 n = 0;
         }
         if(c != BUF_FLUSH)
@@ -52,7 +52,7 @@ int _eputchars(char c)
 int _putfds(char c, int fd)
 {
         static int n;
-        static char buf(WRITE_BUF_SIZE);
+        static char buf[WRITE_BUF_SIZE];
 
         if(c == BUF_FLUSH || n >= WRITE_BUF_SIZE)
         {

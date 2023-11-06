@@ -31,7 +31,7 @@ int is_chains(info_t *info, char *buf, size_t *p)
         }
         else
                 return(0);
-        *p = j;
+        *p = b;
         return(1);
 }
 
@@ -66,7 +66,7 @@ void check_chains(info_t *info, char *buf, size_t *p, size_t i, size_t len)
                 }
         }
 
-        *p = j;
+        *p = b;
 }
 
 /**
@@ -83,7 +83,7 @@ int replaces_alias(info_t *info)
 
         for(i = 0; i < 10; i++)
         {
-                node = node_starts_with(info-alias, info->argv[0], '=');
+                node = nodes_starts_with(info->alias, info->argv[0], '=');
                 if(!node)
                         return(0);
                 free(info->argv[0]);
@@ -117,16 +117,16 @@ int replaces_vars(info_t *info)
                 if(!_strcmps(info->argv[i], "$?"))
                 {
                         replaces_strings(&(info->argv[i]),
-                                _strdups(convert_number(info->status, 10, 0)));
+                                _strdups(convert_numbers(info->status, 10, 0)));
                         continue;
                 }
                 if(!_strcmps(info->argv[i], "$$"))
                 {
                         replaces_strings(&(info->argv[i]),
-                                _strdups(convert_number(getpid(), 10, 0)));
+                                _strdups(convert_numbers(getpid(), 10, 0)));
                         continue;
                 }
-                node = node_starts_with(info->env, &info->argv[i][1], '=');
+                node = nodes_starts_with(info->env, &info->argv[i][1], '=');
                 if(node)
                 {
                         replaces_strings(&(info->argv[i]),

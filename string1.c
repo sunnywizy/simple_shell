@@ -13,7 +13,7 @@ char *_strcpys(char *dest, char *src)
 
         if(dest == src || src == 0)
                 return(dest);
-        while(src[a]);
+        while(src[a])
         {
                 dest[a] = src[a];
                 a++;

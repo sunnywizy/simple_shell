@@ -16,9 +16,9 @@ int hsh(info_t *info, char **av)
         {
                 clears_info(info);
                 if(interactives(info))
-                        _puts("$ ");
+                        _putx("$ ");
                 _eputchars(BUF_FLUSH);
-                r = get_input(info);
+                r = get_inputs(info);
                 if(r != -1)
                 {
                         sets_info(info, av);
@@ -27,11 +27,11 @@ int hsh(info_t *info, char **av)
                                 find_cmds(info);  
                 }
                 else if(interactives(info))
-                        _putchar('\n');
-                free_info(info, 0);  
+                        _putchars('\n');
+                frees_info(info, 0);  
         }
-        write_history(info);
-        free_info(info, 1);
+        writes_history(info);
+        frees_info(info, 1);
         if(!interactives(info) && info->status)
                 exit(info->status);
         if(builtin_rets == -2)
@@ -56,19 +56,19 @@ int find_builtins(info_t *info)
 {
         int a, builts_in_rets = -1;
         builtin_table builtintbl[] = {
-                {"exit", _myexit},
-                {"env", _myenv},
-                {"help", _myhelp},
-                {"history", _myhistory},
-                {"setenv", _mysetenv},
-                {"unsetenv", _myunsetenv},
-                {"cd", _mycd},
-                {"alias", _myalias},
+                {"exit", _myexits},
+                {"env", _myenvs},
+                {"help", _myhelps},
+                {"history", _myhistorys},
+                {"setenv", _mysetsenv},
+                {"unsetenv", _myunsetsenv},
+                {"cd", _mycds},
+                {"alias", _myaliases},
                 {NULL, NULL}
         };
 
         for(a = 0; builtintbl[a].type; a++)
-                if(_strcmp(info->argv[0], builtintbl[a].type) == 0)
+                if(_strcmps(info->argv[0], builtintbl[a].type) == 0)
                 {
                         info->line_count++;
                         builts_in_rets = builtintbl[a].func(info);
@@ -100,7 +100,7 @@ void find_cmds(info_t *info)
         if(!b)
                 return;
 
-        path = find_paths(info, _getenv(info, "PATH="), info->argv[0]);
+        path = find_paths(info, _getsenv(info, "PATH="), info->argv[0]);
         if(path)
         {
                 info->path = path;
@@ -108,7 +108,7 @@ void find_cmds(info_t *info)
         }
         else
         {
-                if((interactives(info) || _getenv(info, "PATH=")
+                if((interactives(info) || _getsenv(info, "PATH=")
                         || info->argv[0][0] == '/') && is_cmds(info, info->argv[0]))
                         fork_cmds(info);
                 else if(*(info->arg) != '\n')
@@ -138,9 +138,9 @@ void fork_cmds(info_t *info)
         }
         if(child_pids == 0)
         {
-                if(execve(info->path, info->argv, get_environ(info)) == -1)
+                if(execve(info->path, info->argv, get_environs(info)) == -1)
                 {
-                        free_info(info, 1);
+                        frees_info(info, 1);
                         if(errno == EACCES)
                                 exit(126);
                         exit(1);
@@ -150,9 +150,9 @@ void fork_cmds(info_t *info)
         else
         {
                 wait(&(info->status));
-                if(WFEXITED(info->status))
+                if(WIFEXITED(info->status))
                 {
-                        info->status WEXITSTATUS(info->status);
+                        info->status = WEXITSTATUS(info->status);
                         if(info->status == 126)
                                 print_errors(info, "Permission denied\n");
                 }

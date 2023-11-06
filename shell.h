@@ -24,7 +24,7 @@
 #define CMD_CHAIN       3
 
 /* for coNvert_number() */
-#define CONVERT_LOWERCAE    1
+#define CONVERT_LOWERCASE    1
 #define CONVERT_UNSIGNED    2
 
 /* 1 if using system getline() */
@@ -42,7 +42,7 @@ typedef struct liststr
         int num;
         char *str;
         struct liststr *next;
-}list_t;
+} list_t;
 
 
 typedef struct passinfo
@@ -69,15 +69,15 @@ typedef struct passinfo
 } info_t;
 
 #define INFO_INIT \
-{NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL \
+{NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
         0, 0, 0}
 
 
 typedef struct builtin
 {
         char *type;
-        int(*func)(info_t *)
-}builtin_table;
+        int(*func)(info_t *);
+} builtin_table;
 
  
 /* toem_sheloop.c */
@@ -88,7 +88,7 @@ void fork_cmds(info_t *info);
 
 /* toem_parser.c */
 int is_cmds(info_t *info, char *path);
-char dups_chars(char * pathstr, int start, int stop);
+char *dups_chars(char * pathstr, int start, int stop);
 char *find_paths(info_t *info, char *pathstr, char *cmd);
 
 /* loophsh.c */
@@ -123,7 +123,7 @@ char **strtows2(char *str, char d);
 
 /* toem_realloc.c */
 char *_memsets(char *s, char b, unsigned int n);
-ffrees(char **pp);
+void ffrees(char **pp);
 void *_reallocs(void *ptr, unsigned int old_size, unsigned int new_size);
 
 /* toem_memory.c */
@@ -137,7 +137,7 @@ int _atois(char *s);
 
 /* toem_errors1.c */
 int _erratois(char *s);
-int print_errors(info_t 8 info, char *estr);
+void print_errors(info_t *info, char *estr);
 int prints_d(int inputs, int fd);
 char *convert_numbers(long int num, int base, int flags);
 void removes_comments(char *buf);
@@ -167,3 +167,38 @@ char *_getsenv(info_t *info, const char *name);
 int _mysetsenv(info_t *info);
 int _myunsetsenv(info_t *info);
 int populate_env_lists(info_t *info);
+
+/* toem_getenv.c */
+char **get_environs(info_t * info);
+int _unsetsenv(info_t *info, char *var);
+int _setsenv(info_t *info, char *var, char *value);
+
+/* toem_history.c */
+char *get_history_files(info_t *info);
+int writes_history(info_t *info);
+int read_historys(info_t *info);
+int builds_history_lists(info_t *info, char *buf, int linecount);
+int renumber_historys(info_t *info);
+
+/* torm_lists.c */
+list_t *add_nodes(list_t **head, const char *str, int num);
+list_t *adds_node_end(list_t **head, const char *str, int num);
+size_t print_lists_strs(const list_t *h);
+int deletes_nodes_at_index(list_t **head, unsigned int index);
+void frees_lists(list_t **head_ptr);
+
+/* toem_lists1.c */
+size_t list_lens(const list_t *h);
+char **lists_to_strings(list_t *head);
+size_t print_lists(const list_t *h);
+list_t *nodes_starts_with(list_t *node, char *prefix, char c);
+ssize_t gets_nodes_index(list_t *head, list_t *node);
+
+/* toem_vars.c */
+int is_chains(info_t *info, char *buf, size_t *p);
+void check_chains(info_t *info, char *buf, size_t *p, size_t i, size_t len);
+int replaces_alias(info_t *info);
+int replaces_vars(info_t *info);
+int replaces_strings(char **old, char *new);
+
+#endif

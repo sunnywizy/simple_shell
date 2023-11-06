@@ -50,7 +50,7 @@ int _atois(char *s)
         int n, sign = 1, flag = 0, output;
         unsigned int results = 0;
 
-        for(n 0; s[n] != '\0' && flag != 2; n++)
+        for(n = 0; s[n] != '\0' && flag != 2; n++)
         {
                 if(s[n] == '-')
                         sign *= -1;
@@ -62,7 +62,7 @@ int _atois(char *s)
                         results += (s[n] - '0');
                 }
                 else if(flag == 1)
-                        flag == 2;
+                        flag = 2;
         }
 
         if(sign == -1)

@@ -35,7 +35,7 @@ int _erratois(char *s)
  * Return: 0 if no numbers in string, converted number otherwise
  *         -1 on error
  */
-int print_errors(info_t 8 info, char *estr)
+void print_errors(info_t *info, char *estr)
 {
         _eputx(info->fname);
         _eputx(": ");
@@ -55,12 +55,12 @@ int print_errors(info_t 8 info, char *estr)
  */
 int prints_d(int inputs, int fd)
 {
-        int (*__putchars)(char) = _putchar;
+        int (*__putchars)(char) = _putchars;
         int n, counts = 0;
         unsigned int _abx_, current;
 
         if(fd == STDERR_FILENO)
-                __putchars = _eputchars
+                __putchars = _eputchars;
         if(inputs < 0)
         {
                 _abx_ = -inputs;

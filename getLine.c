@@ -20,20 +20,20 @@ ssize_t input_bufs(info_t *info, char **buf, size_t *len)
                 *buf = NULL;
                 signal(SIGINT, sigintHandlers);
 #if USE_GETLINE
-                r = getlines(buf, &lens_p, stdin);
+                c = getlines(buf, &lens_p, stdin);
 #else
-                r = _getlines(info, buf, &lens_p);
+                c = _getlines(info, buf, &lens_p);
 #endif
                 if(c > 0)
                 {
                         if((*buf)[c -1] == '\n')
                         {
                                 (*buf)[c - 1] = '\0'; /* remove trailing newline */
-                                r--;
+                                c--;
                         }
                         info->linecount_flag = 1;
                         removes_comments(*buf);
-                        builds_history_lists(info, *buf, info->histcont++);
+                        builds_history_lists(info, *buf, info->histcount++);
                         /* if (_strchr(*buf, ';') is this a command chain? */
                         {
                                 *len = c;
@@ -57,7 +57,7 @@ ssize_t get_inputs(info_t *info)
         ssize_t c = 0;
         char **buf_p = &(info->arg), *p;
 
-        _putchar(BUF_FLUSH);
+        _putchars(BUF_FLUSH);
         c = input_bufs(info, &buf, &lens);
         if(c == -1) /*EOF */
                 return(-1);
@@ -81,11 +81,11 @@ ssize_t get_inputs(info_t *info)
                         info->cmd_buf_type = CMD_NORM;
                 }
 
-                *bufs_p = p; /* pass back pointer to current command position */
+                *buf_p = p; /* pass back pointer to current command position */
                 return(_strlens(p)); /* return length of buffer from _getlines() */
         }
 
-        *bufs_p = buf; /* else not a chain, pass back buffer from _getlines() */
+        *buf_p = buf; /* else not a chain, pass back buffer from _getlines() */
         return(c); /* return length of buffer from _getlines() */
 }
 
@@ -136,18 +136,18 @@ int _getlines(info_t *info, char **ptr, size_t *length)
                 return(-1);
         
         f = _strchrs(buf + a, '\n');
-        k = f ? 1 + (unsigned int)(f - buf) : lens;
-        new_p = realloc(p, s, s ? s + k : k + 1);
+        d = f ? 1 + (unsigned int)(f - buf) : lens;
+        new_p = _reallocs(p, s, s ? s + d : d + 1);
         if(!new_p) /* MALLOC FAILURE */
                 return(p ? free(p), -1 : -1);
         
         if(s)
-                _strncats(new_p, buf + a, k - a);
+                _strncats(new_p, buf + a, d - a);
         else
-                _strncpys(new_p, buf + a, k - a + 1);
+                _strncpys(new_p, buf + a, d - a + 1);
         
-        s += k - a;
-        a = k;
+        s += d - a;
+        a = d;
         p = new_p;
 
         if(length)
@@ -164,7 +164,7 @@ int _getlines(info_t *info, char **ptr, size_t *length)
  */
 void sigintHandlers(__attribute__((unused))int sig_num)
 {
-        _puts("\n");
-        _puts("$ ")
-        _putchar(BUF_FLUSH);
+        _putx("\n");
+        _putx("$ ");
+        _putchars(BUF_FLUSH);
 }
