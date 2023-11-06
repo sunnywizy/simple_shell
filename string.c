@@ -62,7 +62,7 @@ char *starts_with(const char *haystack, const char *needle)
  *
  * Return: pointer to destination buffer
  */
-chat *_strcats(char *dest, char *src)
+char *_strcats(char *dest, char *src)
 {
         char *rets = dest;
 
