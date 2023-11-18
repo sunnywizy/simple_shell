@@ -5,7 +5,7 @@
  * @program_name: Name of shell program after compiling(/hsh, ./a.out etc)
  * @sunny_token: Stroes the address of the input
  */
-void executes_cmds(char *programName, char *sunny_token)
+void executes_cmds(char *programName, char **sunny_token)
 {
         char *dirt_path = NULL;
         int numExecve;

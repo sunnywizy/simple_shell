@@ -14,7 +14,7 @@ char *_strToks(char *text, const char *marks)
                 return(NULL);
 
         tokenStart = save_text;
-        while(*tokenStart != '\0' && _strChr(marks, tokenStart) != NULL)
+        while(*tokenStart != '\0' && _strChr(marks, *tokenStart) != NULL)
                 tokenStart++;
         if(*tokenStart == '\0')
         {
@@ -25,7 +25,7 @@ char *_strToks(char *text, const char *marks)
         tokenEnd = tokenStart;
         while(*tokenEnd != '\0' && _strChr(marks, *tokenEnd) == NULL)
                 tokenEnd++;
-        if(*token_end == '\0')
+        if(*tokenEnd == '\0')
                 save_text = NULL;
         else
         {

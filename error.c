@@ -1,4 +1,4 @@
-#include "shell"
+#include "shell.h"
 
 /**
  * sunny_error - Display error msg. Called in main(),
@@ -8,7 +8,7 @@
  * @err_num: Specific numbers for the different error msgs
  * Return: Always -1 (EXIT_FAILURE) if successful
  */
-int sunny_error(char *programName, char *sunny_token, int errNum)
+int sunny_error(char *programName, char **sunny_token, int errNum)
 {
         static int n = 1;
 

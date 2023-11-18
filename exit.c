@@ -8,7 +8,7 @@
  */
 int close_shell(char *text)
 {
-        if(_strnCmp(text, "exit, 4") == 0)
+        if(_strnCmp(text, "exit", 4) == 0)
         {
                 free(text);
                 exit(EXIT_SUCCESS);

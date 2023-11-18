@@ -11,31 +11,25 @@
 int main(int argc, char *argv[])
 {
         size_t bufferSize = 0;
-        char *buf = NULL, *sunny_token[1], *programName =argv[0];
+        char *text = NULL, *sunny_token[1], *programName =argv[0];
         (void)argc;
 
-        for(,,)
+        while(1)
         {
-                /*checks if its Interactive mode*/
                 if(isatty(STDIN_FILENO))
                         print_string(STDOUT_FILENO, "$ ");
-                
-                /*Collects Input from Users*/
-                _getLines(&buf, &bufferSize);
 
-                /*Splits Inputs into tokens*/
-                _tokenizes(buf, sunny_token);
+                _getLines(&text, &bufferSize);
+
+                creates_tokens(text, sunny_token);
                 if(sunny_token[0] == NULL)
                         continue;
                 
-                /*Create Child Progress*/
                 _Forks(programName, sunny_token);
 
-                /*Handles the loop in sunny_error()*/
                 sunny_error(programName, NULL, 0);
-
         }
-        free(buf);
+        free(text);
 
         return(0);
 }

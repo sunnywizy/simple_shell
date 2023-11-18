@@ -29,13 +29,13 @@ int _strnCmp(const char *goal, char *origin, int number)
         if(number)
                 return(*goal - *origin);
         
-        return(0)
+        return(0);
 }
 
 /**
  *
  */
-int *_strCpy(char *goal, char *origin)
+char *_strCpy(char *goal, char *origin)
 {
         int a;
 
@@ -86,7 +86,7 @@ char *_strDup(char *text)
         if(new_string == NULL)
                 return(NULL);
         
-        _memory_copy(new_string, text, length);
+        _memories_copy(new_string, text, length);
 
         return(new_string);
 }

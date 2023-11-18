@@ -15,5 +15,5 @@ void creates_tokens(char *text, char **sunny_token)
 
         }
 
-        sunny_token[n] = NULL
+        sunny_token[n] = NULL;
 }

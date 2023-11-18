@@ -32,7 +32,7 @@ char *path_memories(char *old_path, char *cmds)
         char *pathTokens, *filePaths, *myPathCopy;
 
         myPathCopy = _strDup(old_path);
-        pathTokens = -_strToks(myPathCopy, ":");
+        pathTokens = _strToks(myPathCopy, ":");
         filePaths = malloc(_strLen(cmds) + _strLen(myPathCopy) + 2);
 
        for(; pathTokens != NULL; pathTokens = _strToks(NULL, ":"))
@@ -42,12 +42,14 @@ char *path_memories(char *old_path, char *cmds)
                 _strCat(filePaths, cmds);
                 _strCat(filePaths, "\0");
 
-                if(access(filePaths, X-OK) == 0)
-                        free(myPathCopy);
-                        return(filePaths);
+                if(access(filePaths, X_OK) == 0)
+                {
+                         free(myPathCopy);
+                         return(filePaths);
+                }
        }
 
-       free(file_path);
+       free(filePaths);
        free(myPathCopy);
 
        return(NULL);
