@@ -3,14 +3,14 @@
 /** 
  * close_shell - Exit shell programm. Called in _Folks() 
  *               after creating a child process.
- * @buf: Input
+ * @text: Input
  * Return: Always 0 if sucessful
  */
-int close_shell(char *buf)
+int close_shell(char *text)
 {
-        if(_strnCmp(buf, "exit, 4") == 0)
+        if(_strnCmp(text, "exit, 4") == 0)
         {
-                free(buf);
+                free(text);
                 exit(EXIT_SUCCESS);
         }
 
