@@ -5,16 +5,16 @@
  * @text: Input
  * Return: Environ if successful else NULL
  */
-char *_getEnv(char *text)
+char *_get_env(char *text)
 {
-        int str_len = _strLen(text);
+        int str_len = _strlen(text);
         int n = 0;
 
        for(; environ[n] != NULL; n++)
        {
-                if(_strnCmp(environ[n], text, str_len) == 0 && environ[n][str_len] == '=')
+                if(_strncmp(environ[n], text, str_len) == 0 && environ[n][str_len] == '=')
                 {
-                        return(environ[n] +str_len + 1);
+                        return(environ[n] + str_len + 1);
                 }
        }
 

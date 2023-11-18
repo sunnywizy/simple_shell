@@ -10,10 +10,10 @@ void creates_tokens(char *text, char **sunny_token)
 {
         int n = 0;
 
-        for(sunny_token[n] = _strToks(text, " \n"); sunny_token[n]; sunny_token[++n] = _strToks(NULL, " \n")) 
-        {
+        sunny_token[n] = _strtoks(text, " \n");
 
-        }
-
+        while(sunny_token[n])
+                sunny_token[++n] = _strtoks(NULL, " \n");
+        
         sunny_token[n] = NULL;
 }

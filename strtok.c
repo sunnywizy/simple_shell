@@ -3,7 +3,7 @@
 /**
  *
  */
-char *_strToks(char *text, const char *marks)
+char *_strtoks(char *text, const char *marks)
 {
         static char *save_text;
         char *tokenStart, *tokenEnd;
@@ -39,7 +39,7 @@ char *_strToks(char *text, const char *marks)
 /**
  *
  */
-char *_strChr(const char *text, int chrt)
+char *_strchr(const char *text, int chrt)
 {
         for(; *text != '\0'; text++)
         {

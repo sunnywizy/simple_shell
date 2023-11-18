@@ -9,9 +9,9 @@
 int print_string(int files_descs, char *text)
 {
         if(files_descs == 1)
-                write(STDOUT_FILENO, text, _strLen(text));
+                write(STDOUT_FILENO, text, _strlen(text));
         else
-                write(STDERR_FILENO, text, _strLen(text));
+                write(STDERR_FILENO, text, _strlen(text));
         
         return(0);
 }

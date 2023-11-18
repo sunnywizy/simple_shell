@@ -11,7 +11,7 @@
 int main(int argc, char *argv[])
 {
         size_t bufferSize = 0;
-        char *text = NULL, *sunny_token[1], *programName =argv[0];
+        char *text = NULL, *sunny_token[1], *chart =argv[0];
         (void)argc;
 
         while(1)
@@ -25,9 +25,9 @@ int main(int argc, char *argv[])
                 if(sunny_token[0] == NULL)
                         continue;
                 
-                _Forks(programName, sunny_token);
+                _Forks(chart, sunny_token);
 
-                sunny_error(programName, NULL, 0);
+                sunny_error(chart, NULL, 0);
         }
         free(text);
 

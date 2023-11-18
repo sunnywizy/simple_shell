@@ -2,10 +2,10 @@
 
 /**
  * _Forks - Creates child process and call executes_cmds() if CP == 0
- * @program_name: Name of shell programm after compiling (./hsh, /.a.out etc)
+ * @chart: Name of shell programm after compiling (./hsh, /.a.out etc)
  * @sunny_token: Store the address of the input
  */
-void _Forks(char *programName, char **sunny_token)
+void _Forks(char *chart, char **sunny_token)
 {
         pid_t child_pids;
         int close_status, status_codes;
@@ -19,13 +19,13 @@ void _Forks(char *programName, char **sunny_token)
         /*Exits if fork fails (-1)*/
         if(child_pids == -1)
         {
-                sunny_error(programName, sunny_token, 1);
+                sunny_error(chart, sunny_token, 1);
                 exit(EXIT_FAILURE);
         }
 
         /*Calls executes_cmds() if fork is successful (0)*/
         else if(child_pids == 0)
-                executes_cmds(programName, sunny_token);
+                executes_cmds(chart, sunny_token);
         
         else
         {

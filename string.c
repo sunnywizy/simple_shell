@@ -6,7 +6,7 @@
  * @text: Input
  * Return: Length or size (i)
  */
-int _strLen(char *text)
+int _strlen(char *text)
 {
         int n;
         for(n = 0; text[n] != '\0'; n++)
@@ -18,7 +18,7 @@ int _strLen(char *text)
 /**
  *
  */
-int _strnCmp(const char *goal, char *origin, int number)
+int _strncmp(const char *goal, char *origin, int number)
 {
         while(number && *goal == *origin)
         {
@@ -35,7 +35,7 @@ int _strnCmp(const char *goal, char *origin, int number)
 /**
  *
  */
-char *_strCpy(char *goal, char *origin)
+char *_strcpy(char *goal, char *origin)
 {
         int a;
 
@@ -53,7 +53,7 @@ char *_strCpy(char *goal, char *origin)
 /**
  *
  */
-char *_strCat(char *goal, char *origin)
+char *_strcat(char *goal, char *origin)
 {
      int a, b;
      
@@ -78,7 +78,7 @@ char *_strCat(char *goal, char *origin)
 /**
  *
  */
-char *_strDup(char *text)
+char *_strdup(char *text)
 {
         int length = _strLen(text) + 1;
         char *new_string = malloc(length);

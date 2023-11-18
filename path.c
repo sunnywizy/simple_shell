@@ -10,7 +10,7 @@ char *_get_paths(char *cmds)
 {
         char *old_path, *new_path;
 
-        old_path = _getEnv("PATH");
+        old_path = _get_env("PATH");
 
         if(old_path)
         {
@@ -22,7 +22,7 @@ char *_get_paths(char *cmds)
 }
 
 /**
- * path_memory - Gets the path of my current working directory
+ * path_memories - Gets the path of my current working directory
  * @old_path: Pointer to store the path
  * @cmds: Inputs
  * Return: Always file_path else NULL if successfull
@@ -31,24 +31,27 @@ char *path_memories(char *old_path, char *cmds)
 {
         char *pathTokens, *filePaths, *myPathCopy;
 
-        myPathCopy = _strDup(old_path);
-        pathTokens = _strToks(myPathCopy, ":");
-        filePaths = malloc(_strLen(cmds) + _strLen(myPathCopy) + 2);
+        myPathCopy = _strdup(old_path);
+        pathTokens = _strtoks(myPathCopy, ":");
+        filePaths = malloc(_strlen(cmds) + _strlen(myPathCopy) + 2);
 
-       for(; pathTokens != NULL; pathTokens = _strToks(NULL, ":"))
+       while(pathTokens != NULL)
        {
-                _strCpy(filePaths, pathTokens);
-                _strCat(filePaths, "/");
-                _strCat(filePaths, cmds);
-                _strCat(filePaths, "\0");
+                _strcpy(filePaths, pathTokens);
+                _strcat(filePaths, "/");
+                _strcat(filePaths, command);
+                _strcat(filePaths, "\0");
 
                 if(access(filePaths, X_OK) == 0)
                 {
-                         free(myPathCopy);
-                         return(filePaths);
+                        return(filePaths);
+                        free(filePaths);
+                        free(myPathCopy);
                 }
-       }
 
+                pathTokens = _strtoks(NULL, ":");
+       }
+       
        free(filePaths);
        free(myPathCopy);
 
