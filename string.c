@@ -80,7 +80,7 @@ char *_strcat(char *goal, char *origin)
  */
 char *_strdup(char *text)
 {
-        int length = _strLen(text) + 1;
+        int length = _strlen(text) + 1;
         char *new_string = malloc(length);
 
         if(new_string == NULL)

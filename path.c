@@ -39,7 +39,7 @@ char *path_memories(char *old_path, char *cmds)
        {
                 _strcpy(filePaths, pathTokens);
                 _strcat(filePaths, "/");
-                _strcat(filePaths, command);
+                _strcat(filePaths, cmds);
                 _strcat(filePaths, "\0");
 
                 if(access(filePaths, X_OK) == 0)
